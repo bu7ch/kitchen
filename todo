@@ -1,0 +1,10 @@
+Kitchen Project :
+  ✔ installation d'express 
+  ✔ installation de nodemon 
+  ✔ mise en place de la config minimum (ES5) 
+  ✔ installer `pug` 
+  ✔ passer des paramètres de l'URL à la vue 
+  ✔ ajout du controller du `logErrors`
+  structure de projet :
+    ✔ `src` dossier 
+    ✔ structure `MVC` plus clair 
