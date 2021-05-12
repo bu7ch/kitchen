@@ -5,17 +5,51 @@ html(lang="en")
     meta(http-equiv="X-UA-Compatible", content="IE=edge")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/css/style.css")
+    <script src="https://kit.fontawesome.com/c1635d58dd.js" crossorigin="anonymous"></script>
     title Kitchen
   body 
     header
-      div 
-        span 
-          a(href="/") Home
-        span 
-          a(href="/Courses") Courses
-        span 
-          a(href="/contact") Contact
+      div(class="nav-content") 
+        div(class="nav-element")
+          span(class="nav-item")
+            a(href="/") Home
+        div(class="nav-element")
+          span(class="nav-item") 
+            a(href="/Courses") Courses
+        div(class="nav-element")
+          span(class="nav-item") 
+            a(href="/contact") Contact
     hr
     block content
+    hr
+    footer 
+      div(class="content-footer-img")
+        div
+          img(src="https://cdn.pixabay.com/photo/2021/01/16/09/05/meal-5921491_960_720.jpg", alt="bol de riz")
+        div
+          img(src="https://cdn.pixabay.com/photo/2017/01/11/12/42/spare-ribs-1971732_960_720.jpg", alt="cote de porc")
+        div
+          img(src="https://cdn.pixabay.com/photo/2015/03/03/12/26/chef-657352_960_720.jpg", alt="cour de cuisine ")
+        div
+          img(src="https://cdn.pixabay.com/photo/2016/08/25/02/57/japans-1618622_960_720.jpg", alt="plateau de sushi ")
+        div
+          img(src="https://cdn.pixabay.com/photo/2020/04/04/15/07/sushi-5002639_960_720.jpg", alt="plateau des sushi")
+      div(class="content-social")
+        div
+          p Kitchen - 
+            em <i class="far fa-copyright"></i> - kitchen@gmail.com - 2021
+        div
+          ul
+            li
+              a(href="http://#")
+                <i class="fab fa-facebook-f"></i>
+            li
+              a(href="http://#")
+                <i class="fab fa-instagram"></i>
+            li
+              a(href="http://#")
+                <i class="fab fa-linkedin-in"></i>
+      
+
       
     

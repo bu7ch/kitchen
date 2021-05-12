@@ -1,9 +1,13 @@
 extends layout
 block content
-    h1 Nos cours : 
-    each item in oCourses
-        h5= item.title
-        span= item.coût
+    div(class="container-courses")
+        div(class="content-img")
+            img(src="https://cdn.pixabay.com/photo/2017/01/26/02/06/platter-2009590_960_720.jpg", alt="plateaux repas")
+        div(class="content-courses")
+            p learn to cook cutting edge food
+            h1 Nos cours : 
+            each item in oCourses
+                h5= item.title
+                span= item.coût
 
-        
     
