@@ -8,3 +8,5 @@ Kitchen Project :
   structure de projet :
     ✔ `src` dossier 
     ✔ structure `MVC` plus clair 
+    ✔ netoyer les methodes 
+    ☐ ajouter de nouvelles routes 
