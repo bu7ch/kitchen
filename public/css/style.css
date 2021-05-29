@@ -64,7 +64,7 @@ hr {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10rem 0 5rem 0;
+  padding: 5rem 0 5rem 0;
 }
 .content-img {
   margin-right: 4rem;
@@ -78,7 +78,7 @@ img {
   justify-content: center;
   align-items: center;
   color: #444;
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 .content-courses p {
   font-size: 2.5rem;
@@ -144,4 +144,26 @@ li a i {
 li a i:hover {
   color: #111;
   transition: all 0.3s ease-out;
+}
+/* contact */
+h2 {
+  font-size: 2rem;
+  margin: 3rem 2rem;
+}
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 20rem;
+  margin-bottom: 5rem;
+}
+label {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+input {
+  margin-bottom: 0.5rem;
+  border: 0;
+  cursor: pointer;
 }
