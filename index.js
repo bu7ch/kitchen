@@ -1,6 +1,7 @@
 const express = require('express');
 const { logErrors, respondNoRessourceFound } = require('./controller/errorController');
 const homeRouter = require('./routes/homeRoute');
+const subscribeRouter = require('./routes/subscribeRoute');
 const app = express();
 const mongoose = require('mongoose');
 const dbURL = "mongodb://localhost:27017/"
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(logErrors)
 app.use('/', homeRouter);
+app.use ('/subscribers', subscribeRouter)
 app.use(respondNoRessourceFound)
 
 
