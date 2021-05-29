@@ -8,5 +8,5 @@ exports.logErrors = (error, req, res, next) => {
 exports.respondNoRessourceFound = (req, res) => {
 let errorCode = httpStatus.StatusCodes.NOT_FOUND;
 res.status(errorCode);
-res.send(`${errorCode} | La page n'existe pas!`)
+res.render('404')
 }

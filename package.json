@@ -4,6 +4,7 @@
   "description": "Node projet avec jacques & thanos",
   "main": "index.js",
   "scripts": {
+    
     "dev": "nodemon index.js"
   },
   "author": "roro-senseï",
