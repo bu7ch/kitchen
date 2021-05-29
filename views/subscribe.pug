@@ -1,0 +1,5 @@
+extends layout
+block content
+  each subscribe in subscribers
+    h5= subscribe.name
+    span= subscribe.email
