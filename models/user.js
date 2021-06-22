@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Subscriber = require("./subscriber");
 
 const userSchema = new Schema(
   {
@@ -14,9 +15,28 @@ const userSchema = new Schema(
       max: 9999,
     },
     password: { type: String, required: true },
-    subscribedAccount: { type: Schema.Types.ObjectId, ref: "subscriber" },
+    subscribedAccount: { type: Schema.Types.ObjectId, ref: "Subscriber" },
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", function (next) {
+  let user = this;
+  if (user.subscribedAccount === undefined) {
+    Subscriber.findOne({
+      email: user.email,
+    })
+      .then((subscriber) => {
+        user.subscribedAccount = subscriber;
+        next();
+      })
+      .catch((error) => {
+        console.log(`Erreur sur l'inscrit: ${error.message}`);
+        next(error);
+      });
+  } else {
+    next();
+  }
+});
 
 module.exports = mongoose.model("User", userSchema);

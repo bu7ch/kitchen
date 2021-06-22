@@ -1,0 +1,14 @@
+extends ../layout
+block content
+    form(action="/users/create" method="post")
+        label(for="inputFirstName") Firstname
+        input(type="text", name="firstname", id="inputFirstName")
+        llabel(for="inputLastName") Lastname
+        input(type="text", name="lastname", id="inputLastName")
+        label(for="inputEmail") Email
+        input(type="email", name="email" id="inputEmail")
+        label(for="inputZipcode") Zipcode
+        input(type="text", name="zipcode", id="inputZipcode")
+        label(for="inputPassword") Password
+        input(type="password", name="password", id="inputPassword")
+        input(type="submit" value="envoyer")

@@ -22,3 +22,15 @@ exports.index = (req, res) => {
       res.redirect("/");
     });
 };
+exports.new = (req, res) => {
+  res.render("users/new");
+};
+
+exports.create = (req, res, next) => {
+  let userParams = new User(getUserParams(req.body));
+  userParams.save((err, user) => {
+    if (err) next(err);
+
+    res.json(user);
+  });
+};
