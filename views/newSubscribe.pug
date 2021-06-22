@@ -1,0 +1,15 @@
+extends layout
+block content
+    div(class="subsribe-content")
+        div(class="formulaire-content")
+        form(action="/subscribers/new", method="post")
+            label Name
+            input(type="text", name="name" )
+            label Email
+            input(type="email", name="email")
+            label Password
+            input(type="password", name="password")
+            label Zipcode
+            input(type="text", name="zipcode")
+
+            input(type="submit", value="Envoyer" class="btn")

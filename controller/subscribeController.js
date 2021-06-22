@@ -13,4 +13,8 @@ exports.postSubscriber = (req, res, next) => {
     if (err) console.error(err);
     res.json(document);
   });
+};
+
+exports.newSubscriber = (req, res, next) => {
+  res.render('newSubscribe');
 }
