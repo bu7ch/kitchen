@@ -9,4 +9,5 @@ Kitchen Project :
     ✔ `src` dossier 
     ✔ structure `MVC` plus clair 
     ✔ netoyer les methodes 
-    ☐ ajouter de nouvelles routes 
+    ✔ ajouter de nouvelles routes 
+    ☐ Jacko doit ajouter la lib cors
