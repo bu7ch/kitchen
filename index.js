@@ -13,6 +13,7 @@ const dbName = "kitchen_db";
 const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
+const cors = require("cors");
 
 mongoose.Promise = global.Promise;
 mongoose
@@ -42,6 +43,7 @@ app.set("views", "./views");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(logErrors);
+app.use(cors());
 app.use((req, res, next) => {
   res.locals.flashMessages = req.flash();
   next();

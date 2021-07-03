@@ -21,6 +21,13 @@ html(lang="en")
             a(href="/contact") Contact
     hr
     block content
+    div(class="flashes")
+      if(flashMessages)
+        if(flashMessages.success) 
+          div(class="flashSuccess") 
+            p= flashMessages.success
+        
+      
     hr
     footer 
       div(class="content-footer-img")
