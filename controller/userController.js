@@ -15,7 +15,11 @@ const getUserParams = (body) => {
 exports.index = (req, res) => {
   User.find({})
     .then((users) => {
-      res.render("users/index", { users: users });
+      res.render(
+        "users/index",
+        { users: users },
+        { flashMessages: { success: "chargement des utilisateurs" } }
+      );
     })
     .catch((err) => {
       console.log(`Pas d'utilisateurs : ${err.message}`);
@@ -32,7 +36,6 @@ exports.create = (req, res, next) => {
     .then((user) => {
       console.log(user.fullName);
       req.flash("success", `${user.fullName} création du compte avec succes.`);
-      res.redirect("/users");
 
       next();
     })
@@ -50,4 +53,30 @@ exports.create = (req, res, next) => {
 
   //   res.json(user);
   // });
+};
+
+exports.login = (req, res) => {
+  res.render("users/login");
+};
+
+exports.authenticate = (req, res, next) => {
+  User.findOne({ email: req.body.email }).then((user) => {
+    if (user && user.password === req.body.password) {
+      res.redirect(`/users/${user._id}`);
+      req.flash("success", ` ${user.fullName} s'est connecté avec succes`);
+      next();
+    } else {
+      req.flash("error", "Votre email ou votre password ne sont inexacte");
+      res.redirect("/users/login");
+      next();
+    }
+  });
+};
+exports.show = (req, res, next) => {
+  let userId = req.params.id;
+  User.findById(userId, (err, user) => {
+    if (err) next(err);
+
+    res.render("users/show", { user: user });
+  });
 };
