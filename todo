@@ -11,3 +11,4 @@ Kitchen Project :
     ✔ netoyer les methodes 
     ✔ ajouter de nouvelles routes 
     ☐ Jacko doit ajouter la lib cors
+    ☐ ajout de lib express-session cookie-parser connect-flash 

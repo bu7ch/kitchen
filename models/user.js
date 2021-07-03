@@ -38,5 +38,8 @@ userSchema.pre("save", function (next) {
     next();
   }
 });
+userSchema.virtual("fullName").get(function () {
+  return `${this.name.first} ${this.name.last}`;
+});
 
 module.exports = mongoose.model("User", userSchema);

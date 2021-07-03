@@ -167,3 +167,15 @@ input {
   border: 0;
   cursor: pointer;
 }
+.subsribe-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60em;
+}
+.formulaire-content {
+  border: 3px solid #637d96;
+  width: 80%;
+  height: 50%;
+}

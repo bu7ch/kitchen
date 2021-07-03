@@ -10,6 +10,10 @@ const app = express();
 const mongoose = require("mongoose");
 const dbURL = "mongodb://localhost:27017/";
 const dbName = "kitchen_db";
+const expressSession = require("express-session");
+const cookieParser = require("cookie-parser");
+const connectFlash = require("connect-flash");
+
 mongoose.Promise = global.Promise;
 mongoose
   .connect(dbURL + dbName, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -19,12 +23,29 @@ mongoose
   });
 
 const port = process.env.PORT || 3000;
+app.use(cookieParser("secret_passcode"));
+app.use(
+  expressSession({
+    secret: "secret_passcode",
+    cookie: {
+      maxAge: 4000000,
+    },
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(connectFlash());
+
 app.use(express.static("public"));
 app.set("view engine", "pug");
 app.set("views", "./views");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(logErrors);
+app.use((req, res, next) => {
+  res.locals.flashMessages = req.flash();
+  next();
+});
 app.use("/", homeRouter);
 app.use("/subscribers", subscribeRouter);
 app.use("/users", userRouter);
