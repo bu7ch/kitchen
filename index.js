@@ -13,7 +13,14 @@ const dbName = "kitchen_db";
 const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const connectFlash = require("connect-flash");
+const passport = require("passport");
+app.use(passport.initialize());
+app.use(passport.session());
 const cors = require("cors");
+const User = require("./models/user");
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 mongoose.Promise = global.Promise;
 mongoose
