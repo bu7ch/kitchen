@@ -31,23 +31,37 @@ exports.new = (req, res) => {
 };
 
 exports.create = (req, res, next) => {
-  let userParams = new User(getUserParams(req.body));
-  User.create(userParams)
-    .then((user) => {
-      console.log(user.fullName);
+  let newUser = new User(getUserParams(req.body));
+  User.register(newUser, req.body.password, (error, user) => {
+    if (user) {
       req.flash("success", `${user.fullName} création du compte avec succes.`);
-
+      res.redirect("/users");
       next();
-    })
-    .catch((err) => {
-      console.log(`Erreur lors de la sauvegarde : ${err.message}`);
-      res.redirect("/users/new");
+    } else {
       req.flash(
         "error",
-        `Erreur lors de la création d'un user : ${err.message}`
+        `Erreur le compte n'à pas pu être créé : ${error.message} .`
       );
+      res.redirect("/users/new");
       next();
-    });
+    }
+  });
+  // User.create(userParams)
+  //   .then((user) => {
+  //     console.log(user.fullName);
+  //     req.flash("success", `${user.fullName} création du compte avec succes.`);
+
+  //     next();
+  //   })
+  //   .catch((err) => {
+  //     console.log(`Erreur lors de la sauvegarde : ${err.message}`);
+  //     res.redirect("/users/new");
+  //     req.flash(
+  //       "error",
+  //       `Erreur lors de la création d'un user : ${err.message}`
+  //     );
+  //     next();
+  //   });
   // userParams.save((err, user) => {
   //   if (err) next(err);
 
