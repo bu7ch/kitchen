@@ -10,4 +10,6 @@ Kitchen Project :
     ✔ structure `MVC` plus clair 
     ✔ netoyer les methodes 
     ✔ ajouter de nouvelles routes 
-    ☐ Jacko doit ajouter la lib cors
+    ✔ Jacko doit ajouter la lib cors
+    ✔ ajout de lib express-session cookie-parser connect-flash
+    ☐ 
