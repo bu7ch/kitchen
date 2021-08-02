@@ -93,6 +93,12 @@ exports.authenticate = passport.authenticate("local", {
 //     next();
 //   }
 // });
+exports.logout = (req, res, next) => {
+  req.logout();
+  req.flash("success", "Vous avez été déconnecté");
+  res.redirect("/");
+  next();
+};
 exports.show = (req, res, next) => {
   let userId = req.params.id;
   User.findById(userId, (err, user) => {

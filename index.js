@@ -52,6 +52,8 @@ app.use(express.json());
 app.use(logErrors);
 app.use(cors());
 app.use((req, res, next) => {
+  res.locals.loggedIn = req.isAuthenticated();
+  req.currentUser = req.user;
   res.locals.flashMessages = req.flash();
   next();
 });
