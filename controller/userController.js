@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const passport = require("passport");
+const { check, getValidationResult } = require("express-validator");
 
 const getUserParams = (body) => {
   return {
@@ -42,6 +44,7 @@ exports.create = (req, res, next) => {
         "error",
         `Erreur le compte n'à pas pu être créé : ${error.message} .`
       );
+      req.skip = true;
       res.redirect("/users/new");
       next();
     }
@@ -73,24 +76,59 @@ exports.login = (req, res) => {
   res.render("users/login");
 };
 
-exports.authenticate = (req, res, next) => {
-  User.findOne({ email: req.body.email }).then((user) => {
-    if (user && user.password === req.body.password) {
-      res.redirect(`/users/${user._id}`);
-      req.flash("success", ` ${user.fullName} s'est connecté avec succes`);
-      next();
-    } else {
-      req.flash("error", "Votre email ou votre password ne sont inexacte");
-      res.redirect("/users/login");
-      next();
-    }
-  });
-};
+exports.authenticate = passport.authenticate("local", {
+  failureRedirect: "/users/login",
+  failureFlash: "Erreur de connexion!",
+  successRedirect: "/",
+  successFlash: "Connecté",
+});
+// User.findOne({ email: req.body.email }).then((user) => {
+//   if (user && user.password === req.body.password) {
+//     res.redirect(`/users/${user._id}`);
+//     req.flash("success", ` ${user.fullName} s'est connecté avec succes`);
+//     next();
+//   } else {
+//     req.flash("error", "Votre email ou votre password ne sont inexacte");
+//     res.redirect("/users/login");
+//     next();
+//   }
+// });
 exports.show = (req, res, next) => {
   let userId = req.params.id;
   User.findById(userId, (err, user) => {
     if (err) next(err);
 
     res.render("users/show", { user: user });
+  });
+};
+exports.validate = (req, res, next) => {
+  req
+    .sanitizeBody("email")
+    .normalizeEmail({
+      all_lowercase: true,
+    })
+    .trim();
+  req.check("email", "l'email est invalide").isEmail();
+  req
+    .check("zipCode", "Code postal est invalide")
+    .notEmpty()
+    .isInt()
+    .isLength({
+      min: 5,
+      max: 5,
+    })
+    .equals(req.body.zipCode);
+
+  req.check("password", "Le password ne peut pas être vide").notEmpty();
+
+  req.getValidationResult().then((err) => {
+    if (!err.isEmpty()) {
+      let messages = err.array().map((e) => e.message);
+      req.flash("error", messages.join(" and "));
+      res.redirect("/users/new");
+      next();
+    } else {
+      next();
+    }
   });
 };

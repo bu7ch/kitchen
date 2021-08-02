@@ -19,6 +19,13 @@ html(lang="en")
         div(class="nav-element")
           span(class="nav-item") 
             a(href="/contact") Contact
+        div(class="nav-element")
+          if(loggedIn) 
+              a(href=`/users/${curentUser._id}`) currentUser.fullName
+          else 
+            span(class="nav-item")
+              a(href="/users/login") connexion
+        
     hr
     block content
     div(class="flashes")
