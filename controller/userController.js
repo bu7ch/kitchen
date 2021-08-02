@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const passport = require("passport");
-const { check, getValidationResult } = require("express-validator");
+const { check, validationResult } = require("express-validator");
 
 const getUserParams = (body) => {
   return {
@@ -44,7 +44,6 @@ exports.create = (req, res, next) => {
         "error",
         `Erreur le compte n'à pas pu être créé : ${error.message} .`
       );
-      req.skip = true;
       res.redirect("/users/new");
       next();
     }
@@ -75,12 +74,11 @@ exports.create = (req, res, next) => {
 exports.login = (req, res) => {
   res.render("users/login");
 };
-
 exports.authenticate = passport.authenticate("local", {
   failureRedirect: "/users/login",
-  failureFlash: "Erreur de connexion!",
+  failureFlash: "Erreur de connexion.",
   successRedirect: "/",
-  successFlash: "Connecté",
+  successFlash: "Connecté!"
 });
 // User.findOne({ email: req.body.email }).then((user) => {
 //   if (user && user.password === req.body.password) {
@@ -103,18 +101,13 @@ exports.show = (req, res, next) => {
   let userId = req.params.id;
   User.findById(userId, (err, user) => {
     if (err) next(err);
-
     res.render("users/show", { user: user });
   });
 };
-exports.validate = (req, res, next) => {
-  req
-    .sanitizeBody("email")
-    .normalizeEmail({
-      all_lowercase: true,
-    })
-    .trim();
-  req.check("email", "l'email est invalide").isEmail();
+exports.validate = (req, res, next) => { 
+  req.check("email", "l'email est invalide").isEmail().normalizeEmail({
+    all_lowercase: true,
+  }).trim();
   req
     .check("zipCode", "Code postal est invalide")
     .notEmpty()
@@ -127,9 +120,10 @@ exports.validate = (req, res, next) => {
 
   req.check("password", "Le password ne peut pas être vide").notEmpty();
 
-  req.getValidationResult().then((err) => {
+  req.validationResult().then((err) => {
     if (!err.isEmpty()) {
       let messages = err.array().map((e) => e.message);
+      req.skip = true;
       req.flash("error", messages.join(" and "));
       res.redirect("/users/new");
       next();
